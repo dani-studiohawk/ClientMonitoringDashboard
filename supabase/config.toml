@@ -1,0 +1,13 @@
+# Minimal Supabase CLI config, used when deploying edge functions.
+project_id = "ylnrkfpchrzvuhqrnwco"
+
+# The gateway JWT check is off for these functions: they authenticate the
+# caller themselves (see functions/_shared/auth.ts, CRON_SECRET).
+[functions.sync-monday]
+verify_jwt = false
+
+[functions.sync-clockify]
+verify_jwt = false
+
+[functions.calculate-all-metrics]
+verify_jwt = false

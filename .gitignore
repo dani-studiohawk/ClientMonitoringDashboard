@@ -1,0 +1,31 @@
+# OS / editor
+desktop.ini
+.DS_Store
+
+# Env files and secrets (templates are *.env.example)
+.env
+.env.*
+!*.env.example
+!.env.example
+*.secret
+*.key
+
+# Supabase CLI local state
+supabase/.temp/
+supabase/.branches/
+
+# Data exports never belong in the repo
+data_exports/
+*.csv
+
+# Python (archive/legacy-scripts)
+__pycache__/
+*.py[cod]
+
+# Claude Code local settings
+.claude/settings.local.json
+
+# Raw API exports (staff rates, emails, client data)
+docs/reference/*.json
+clockify_data_structure.json
+monday_board_structure.json
