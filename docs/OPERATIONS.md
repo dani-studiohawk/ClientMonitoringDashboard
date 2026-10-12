@@ -116,7 +116,7 @@ Do steps 2 and 3 together; between them, scheduled syncs will be rejected.
 
 GitHub deploys the edge functions (`.github/workflows/deploy-functions.yml`)
 with a Supabase access token stored as the `SUPABASE_ACCESS_TOKEN` repository
-secret. It lasts 90 days (current one expires around 24 Dec 2026). When it
+secret. It lasts 90 days (current one expires on 10 Jan 2027). When it
 expires the live syncs keep running, but changes to them stop deploying.
 
 1. Supabase → **Account → Access Tokens** → Generate new token, with the same
