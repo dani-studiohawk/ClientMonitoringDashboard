@@ -12,6 +12,7 @@ const CLIENT_MATCH_COLUMNS = "id, name, is_active, monday_removed_at, monday_las
 const CLOCKIFY_API_URL = "https://api.clockify.me/api/v1";
 const PRE_SPRINT_LOOKBACK_DAYS = 14;
 const DEFAULT_DAYS_BACK = 7;
+const MAX_DAYS_BACK = 365;
 
 // Types
 interface ClockifyUser {
@@ -439,7 +440,16 @@ Deno.serve(async (req) => {
     let daysBack = DEFAULT_DAYS_BACK;
     try {
       const body = await req.json();
-      if (body.days_back) daysBack = body.days_back;
+      if (body.days_back !== undefined) {
+        const requested = Number(body.days_back);
+        if (!Number.isInteger(requested) || requested < 1 || requested > MAX_DAYS_BACK) {
+          return new Response(
+            JSON.stringify({ error: `days_back must be a whole number from 1 to ${MAX_DAYS_BACK}` }),
+            { status: 400, headers: { "Content-Type": "application/json" } },
+          );
+        }
+        daysBack = requested;
+      }
     } catch {
       // No body or invalid JSON - use defaults
     }

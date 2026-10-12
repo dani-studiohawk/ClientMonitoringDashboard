@@ -1,8 +1,18 @@
 import { type NextRequest } from 'next/server'
 import { updateSession } from '@/lib/supabase/middleware'
+import { buildContentSecurityPolicy, generateNonce } from '@/lib/csp'
 
 export async function middleware(request: NextRequest) {
-  return await updateSession(request)
+  // Next.js reads the nonce from the request's CSP header and applies it to
+  // the scripts it renders, so set it on the request as well as the response.
+  const nonce = generateNonce()
+  const csp = buildContentSecurityPolicy(nonce)
+  request.headers.set('x-nonce', nonce)
+  request.headers.set('Content-Security-Policy', csp)
+
+  const response = await updateSession(request)
+  response.headers.set('Content-Security-Policy', csp)
+  return response
 }
 
 export const config = {

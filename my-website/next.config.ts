@@ -1,27 +1,8 @@
 import type { NextConfig } from "next";
 
-const isDev = process.env.NODE_ENV !== "production";
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
-const supabaseWs = supabaseUrl.replace(/^https:/, "wss:");
-
-// Next.js injects inline scripts for hydration, so script-src needs
-// 'unsafe-inline' unless we move to nonce-based CSP. The directives that
-// matter most here are frame-ancestors, connect-src, form-action and base-uri.
-const contentSecurityPolicy = [
-  "default-src 'self'",
-  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}`,
-  "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob: https://lh3.googleusercontent.com",
-  "font-src 'self' data:",
-  `connect-src 'self' ${supabaseUrl} ${supabaseWs}`.trim(),
-  "frame-ancestors 'none'",
-  "base-uri 'self'",
-  `form-action 'self' ${supabaseUrl}`.trim(),
-  "object-src 'none'",
-].join("; ");
+// The Content-Security-Policy is set per request in src/middleware.ts (it needs a nonce).
 
 const securityHeaders = [
-  { key: "Content-Security-Policy", value: contentSecurityPolicy },
   { key: "X-Frame-Options", value: "DENY" },
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
