@@ -15,7 +15,7 @@ concurrency:
 jobs:
   web:
     name: Website (lint, typecheck, test, build)
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     defaults:
       run:
         working-directory: my-website
@@ -34,7 +34,7 @@ jobs:
 
   functions:
     name: Edge functions (deno)
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v5
       - uses: denoland/setup-deno@v2

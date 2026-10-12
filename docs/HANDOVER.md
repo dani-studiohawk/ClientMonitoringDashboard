@@ -69,7 +69,7 @@ Moving them to shared/service accounts is recommended (section 11).
 | Clockify API key (`CLOCKIFY_API_KEY`) | Read time entries for the workspace | Dani's Clockify account | New owner creates a key (Clockify → Profile settings → API), sets the secret; needs access to all users' entries (workspace admin) |
 | Slack webhook (`SLACK_WEBHOOK_URL`) | Removed-client alerts to `#client-monitoring-tool` | Installed by Dani | Create a new incoming webhook, set the secret |
 | Google OAuth client | "Sign in with Google" | Dani's Google Cloud project | Supabase → Authentication → Providers → Google shows the client ID in use |
-| GitHub secret `SUPABASE_ACCESS_TOKEN` | Automatic edge function deploys | Dani (expires ~24 Dec 2026) | Replace with the new owner's token (OPERATIONS.md, "Renew the deploy token") |
+| GitHub secret `SUPABASE_ACCESS_TOKEN` | Automatic edge function deploys | Dani (expires 10 Jan 2027) | Replace with the new owner's token (OPERATIONS.md, "Renew the deploy token") |
 | App admin rights | Analytics, Settings, all dashboards | Dani, Georgia Anderson, Jinoo Nam | `users.is_admin` (OPERATIONS.md) |
 
 When someone leaves: revoke their tokens above, replace each secret they
@@ -249,7 +249,7 @@ order by d.start_time desc limit 10;
 |------|------|
 | Daily (glance) | `sync_logs` has today's rows; `#client-monitoring-tool` for removed clients |
 | When prompted in Slack / banner | Review removed clients (Settings) |
-| ~17 Dec 2026, then every 90 days | Renew the GitHub deploy token (calendar reminder set for 17 Dec) |
+| ~3 Jan 2027, then every 90 days | Renew the GitHub deploy token (expires 10 Jan 2027; reminder set for 3 Jan) |
 | When someone joins/leaves the DPR team | OPERATIONS.md: add lead / when someone leaves |
 | Quarterly | Review app admins, Supabase/Vercel/GitHub members, and who owns each API key (section 3) |
 | When Monday or Clockify change their setup | Check the next sync's records count and a few clients |

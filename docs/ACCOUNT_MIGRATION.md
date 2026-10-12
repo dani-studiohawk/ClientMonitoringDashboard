@@ -185,7 +185,7 @@ Only after every check above has passed:
    member, GitHub org owner), not as the owner of record.
 4. App roles are unaffected: `users.is_admin` stays as is. The shared account does not need
    to sign in to the dashboard.
-5. Move the deploy-token reminder (17 Dec 2026, then every 90 days) from
+5. Move the deploy-token reminder (3 Jan 2027, then every 90 days) from
    Dani's calendar to a shared calendar or the shared account's.
 
 ## Phase 5: update the docs
