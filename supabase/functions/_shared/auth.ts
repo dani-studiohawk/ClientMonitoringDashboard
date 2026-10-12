@@ -28,9 +28,16 @@ export function requireCronSecret(req: Request): Response | null {
     })
   }
 
+  if (expected.length < 32) {
+    console.warn('CRON_SECRET is shorter than 32 characters; use a long random value')
+  }
+
   const header = req.headers.get('Authorization') ?? ''
   const token = header.startsWith('Bearer ') ? header.slice(7) : ''
   if (!token || !timingSafeEqual(token, expected)) {
+    // Never log the token itself, only enough to spot repeated guessing.
+    const source = req.headers.get('x-forwarded-for') ?? 'unknown'
+    console.warn(`Rejected unauthorised call (source: ${source}, token supplied: ${token ? 'yes' : 'no'})`)
     return new Response(JSON.stringify({ error: 'Unauthorized' }), {
       status: 401,
       headers: { 'Content-Type': 'application/json' },

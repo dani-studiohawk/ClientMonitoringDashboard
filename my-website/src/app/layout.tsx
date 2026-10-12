@@ -12,6 +12,9 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// Every page is rendered per request so the CSP nonce can be applied to its scripts.
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "StudioHawk Client Report",
   description: "StudioHawk DPR client reporting dashboard",

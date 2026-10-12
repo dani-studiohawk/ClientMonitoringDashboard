@@ -9,17 +9,7 @@ import { calculateClientMetrics } from './client-calculator.ts'
 import { getServiceKey, requireCronSecret } from '../_shared/auth.ts'
 import { createDbClient, errorMessage } from '../_shared/db.ts'
 
-const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-}
-
 serve(async (req) => {
-  // Handle CORS preflight requests
-  if (req.method === 'OPTIONS') {
-    return new Response('ok', { headers: corsHeaders })
-  }
-
   const denied = requireCronSecret(req)
   if (denied) return denied
 
@@ -124,7 +114,7 @@ serve(async (req) => {
         trigger,
       }),
       {
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json' },
         status: 200,
       }
     )
@@ -137,7 +127,7 @@ serve(async (req) => {
         error: errorMessage(error),
       }),
       {
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json' },
         status: 500,
       }
     )
